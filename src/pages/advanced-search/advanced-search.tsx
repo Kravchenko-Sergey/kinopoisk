@@ -33,7 +33,7 @@ export const AdvancedSearch = () => {
 	const maxYearValue = watch('maxYear')
 
 	return (
-		<Wrap justify='center'>
+		<Wrap direction='column' align='center'>
 			<Stack mt={16}>
 				<Heading>Расширенный поиск</Heading>
 				<form onSubmit={handleSubmit(onSubmit)}>
@@ -96,6 +96,9 @@ export const AdvancedSearch = () => {
 						<Button type='submit'>Поиск</Button>
 					</Flex>
 				</form>
+			</Stack>
+			<Stack>
+				<Heading>Искать студии-производители:</Heading>
 			</Stack>
 		</Wrap>
 	)
