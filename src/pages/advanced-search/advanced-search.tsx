@@ -16,16 +16,36 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 type FormValues = {
 	country: string
 	genre: string
-	year: number
+	year?: number
 	minYear: number
 	maxYear: number
 }
 
+type FormValues2 = {
+	studio: string
+}
+
+type FormValues3 = {
+	keyword: string
+}
+
 export const AdvancedSearch = () => {
 	const { handleSubmit, control, watch, reset } = useForm<FormValues>()
+	const { handleSubmit: handleSubmit2, control: control2, reset: reset2 } = useForm<FormValues2>()
+	const { handleSubmit: handleSubmit3, control: control3, reset: reset3 } = useForm<FormValues3>()
 
 	const onSubmit: SubmitHandler<FormValues> = data => {
 		reset()
+		console.log(data)
+	}
+
+	const onSubmit2: SubmitHandler<FormValues2> = data => {
+		reset2()
+		console.log(data)
+	}
+
+	const onSubmit3: SubmitHandler<FormValues3> = data => {
+		reset3()
 		console.log(data)
 	}
 
@@ -33,9 +53,11 @@ export const AdvancedSearch = () => {
 	const maxYearValue = watch('maxYear')
 
 	return (
-		<Wrap direction='column' align='center'>
-			<Stack mt={16}>
-				<Heading>Расширенный поиск</Heading>
+		<Wrap direction='column' align='center' maxWidth={640} margin='0 auto'>
+			<Stack mt={16} width='full'>
+				<Heading as='h2' size='lg'>
+					Расширенный поиск
+				</Heading>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<Flex mt={4} direction='column' gap={4}>
 						<Controller
@@ -97,8 +119,37 @@ export const AdvancedSearch = () => {
 					</Flex>
 				</form>
 			</Stack>
-			<Stack>
-				<Heading>Искать студии-производители:</Heading>
+			<Stack mt={16} width='full'>
+				<Heading as='h2' size='lg'>
+					Искать студии-производители:
+				</Heading>
+				<form onSubmit={handleSubmit2(onSubmit2)}>
+					<Flex mt={4} direction='column' gap={4}>
+						<Controller
+							name='studio'
+							control={control2}
+							defaultValue=''
+							render={({ field }) => <Input placeholder='Студия' {...field} />}
+						/>
+						<Button type='submit'>Поиск</Button>
+					</Flex>
+				</form>
+			</Stack>
+			<Stack mt={16} width='full'>
+				<Heading as='h2' size='lg'>
+					Искать фильм по словам:
+				</Heading>
+				<form onSubmit={handleSubmit3(onSubmit3)}>
+					<Flex mt={4} direction='column' gap={4}>
+						<Controller
+							name='keyword'
+							control={control3}
+							defaultValue=''
+							render={({ field }) => <Input placeholder='Введите ключевое слово' {...field} />}
+						/>
+						<Button type='submit'>Поиск</Button>
+					</Flex>
+				</form>
 			</Stack>
 		</Wrap>
 	)

@@ -11,7 +11,7 @@ export const baseAPI = {
 	getFilms() {
 		return instance.get<GetFilmsResponse>('/v1.4/movie')
 	},
-	getFilmById(id: string) {
+	getFilmById(id: string | undefined) {
 		return instance.get<GetFilmByIdResponse>(`/v1.4/movie/${id}`)
 	},
 	getFilmByName(params: any) {
@@ -34,11 +34,20 @@ export const baseAPI = {
 	},
 	getActors() {
 		return instance.get<GetActorsResponse>(`/v1.4/person/search`)
+	},
+	getByKeyword() {
+		return instance.get<GetByKeywordResponse>(`/v1.4/keyword`)
+	},
+	getStudio() {
+		return instance.get<GetStudioResponse>(`/v1.4/studio`)
+	},
+	getCollection() {
+		return instance.get<GetCollectionResponse>(`/v1.4/list`)
 	}
 }
 
 export type Film = {
-	id: number
+	id: string
 	externalId: FilmExternalId
 	name: string
 	alternativeName: string
@@ -284,7 +293,9 @@ type ParamField = {
 	slug: string
 }
 
-type GetFilmsResponse = Film[]
+type GetFilmsResponse = {
+	docs: Film[]
+}
 
 type GetFilmByIdResponse = Film
 
@@ -409,4 +420,63 @@ export type GetActorsResponseDocs = {
 	deathPlace: GetActorsResponseDocsDeathPlace[]
 	profession: GetActorsResponseDocsProfession[]
 	growth: number
+}
+
+export type GetByKeywordResponse = {
+	docs: GetByKeywordResponseDocs[]
+	total: number
+	limit: number
+	page: number
+	pages: number
+}
+export type GetByKeywordResponseDocsMovies = {
+	id: number
+}
+export type GetByKeywordResponseDocs = {
+	id: number
+	title: string
+	movies: GetByKeywordResponseDocsMovies
+	updatedAt: string
+	createdAt: string
+}
+
+export type GetStudioResponse = {
+	docs: GetStudioResponseDocs[]
+	total: number
+	limit: number
+	page: number
+	pages: number
+}
+export type GetStudioResponseDocsMovies = {
+	id: number
+}
+export type GetStudioResponseDocs = {
+	id: string
+	subType: string
+	title: string
+	type: string
+	movies: GetStudioResponseDocsMovies
+	updatedAt: string
+	createdAt: string
+}
+
+export type GetCollectionResponse = {
+	docs: GetCollectionResponseDocs[]
+	total: number
+	limit: number
+	page: number
+	pages: number
+}
+export type GetCollectionResponseDocsCover = {
+	url: string
+	previewUrl: string
+}
+export type GetCollectionResponseDocs = {
+	category: string
+	slug: string
+	moviesCount: number
+	cover: GetCollectionResponseDocsCover
+	name: string
+	updatedAt: string
+	createdAt: string
 }

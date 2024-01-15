@@ -4,6 +4,8 @@ import { Film } from '../pages/film/film.tsx'
 import { Layout } from '../components/layout/layout.tsx'
 import { Chance } from '../pages/chance/chance.tsx'
 import { AdvancedSearch } from '../pages/advanced-search/advanced-search.tsx'
+import { Lists } from '../pages/lists/lists.tsx'
+import { Top250 } from '../pages/lists/films/top-250/top250.tsx'
 
 export const router = createBrowserRouter([
 	{
@@ -25,6 +27,14 @@ export const router = createBrowserRouter([
 			{
 				path: `/chance`,
 				element: <Chance />
+			},
+			{
+				path: `/lists`,
+				element: <Lists />
+			},
+			{
+				path: `/lists/top-250`,
+				element: <Top250 />
 			}
 		]
 	}
